@@ -3,13 +3,19 @@ import { firebase, database, ref, set, get } from './firebase.js';
 window.addEventListener("DOMContentLoaded", (event) => {
     var writeButton = document.getElementById("write");
     var readButton = document.getElementById("read");
+    var clearButton = document.getElementById("clear");
     var dataDiv = document.getElementById("data");
+
     if (writeButton) {
         writeButton.addEventListener('click', Write);
     }
     if (readButton) {
         readButton.addEventListener('click', Read);
     }
+    if (clearButton) {
+        clearButton.addEventListener('click', Clear);
+    }
+
     function Write() {
         const dbRef = ref(database, 'users/' + id);
         const newData = { name: "test" + id };
@@ -25,6 +31,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
         } else {
             dataDiv.innerHTML = "No data available";
         }
+    }
+    function Clear() {
+        id = 0;
+        const dbRef = ref(database, 'users/');
+        set(dbRef, {});
     }
 });
 
